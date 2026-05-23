@@ -14,5 +14,20 @@
     "ctaProjects": "Voir mes projets",
     "ctaContact": "Me contacter",
     "available": "Disponible"
+  },
+  "about": {
+    "eyebrow": "À propos",
+    "title": "Construire la donnée utile à grande échelle.",
+    "values": {
+      "rigor": "Rigueur",
+      "rigorDesc": "Pipelines testés, documentés, monitorés.",
+      "curiosity": "Curiosité",
+      "curiosityDesc": "Veille active sur IA, RAG et nouveaux outils data.",
+      "product": "Esprit produit",
+      "productDesc": "Mes pipelines servent un cas d'usage métier clair.",
+      "teach": "Vulgarisation",
+      "teachDesc": "Tuteur Acadomia : transmettre, c'est aussi maîtriser."
+    },
+    "certs": "Certifications"
   }
 }

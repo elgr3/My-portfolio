@@ -14,5 +14,20 @@
     "ctaProjects": "View my work",
     "ctaContact": "Get in touch",
     "available": "Available"
+  },
+  "about": {
+    "eyebrow": "About",
+    "title": "Building useful data at scale.",
+    "values": {
+      "rigor": "Rigor",
+      "rigorDesc": "Tested, documented, monitored pipelines.",
+      "curiosity": "Curiosity",
+      "curiosityDesc": "Active watch on AI, RAG, and new data tools.",
+      "product": "Product mindset",
+      "productDesc": "My pipelines serve a clear business use case.",
+      "teach": "Teaching",
+      "teachDesc": "Acadomia tutor: teaching is mastering."
+    },
+    "certs": "Certifications"
   }
 }
