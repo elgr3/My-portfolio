@@ -54,5 +54,23 @@
   "education": {
     "eyebrow": "Formation",
     "title": "Parcours académique"
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Discutons d'un projet.",
+    "subtitle": "Que ce soit pour une alternance, un projet data ou juste un échange, je réponds vite.",
+    "name": "Nom",
+    "email": "Email",
+    "subject": "Sujet",
+    "message": "Message",
+    "send": "Envoyer",
+    "sending": "Envoi…",
+    "success": "Message envoyé. Je te réponds très vite.",
+    "error": "Oups, échec de l'envoi. Réessayez ou écrivez-moi directement.",
+    "tooShort": "Trop court",
+    "tooLong": "Trop long",
+    "invalidEmail": "Email invalide",
+    "directMail": "ou écris-moi directement à",
+    "otherChannels": "Autres canaux"
   }
 }
