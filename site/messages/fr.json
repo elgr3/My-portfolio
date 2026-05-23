@@ -1,0 +1,18 @@
+{
+  "nav": {
+    "about": "À propos",
+    "experience": "Expérience",
+    "skills": "Stack",
+    "projects": "Projets",
+    "education": "Formation",
+    "contact": "Contact",
+    "cv": "CV"
+  },
+  "hero": {
+    "tagline": "Data Engineer · Cloud Architect",
+    "typewriter": "Je construis des pipelines qui passent à l'échelle_",
+    "ctaProjects": "Voir mes projets",
+    "ctaContact": "Me contacter",
+    "available": "Disponible"
+  }
+}
