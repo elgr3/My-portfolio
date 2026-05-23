@@ -40,3 +40,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Fichiers à ignorer
+lien github.txt
+Profile (1).pdf
+
+# Dossiers à ignorer
+.claude/
+docs/

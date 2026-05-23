@@ -4,3 +4,14 @@ node_modules/
 .vercel
 *.log
 .DS_Store
+
+
+
+# Fichiers à ignorer
+lien github.txt
+Profile (1).pdf
+
+# Dossiers à ignorer
+.claude/
+docs/
+
