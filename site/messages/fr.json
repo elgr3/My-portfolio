@@ -29,5 +29,13 @@
       "teachDesc": "Tuteur Acadomia : transmettre, c'est aussi maîtriser."
     },
     "certs": "Certifications"
+  },
+  "experience": {
+    "eyebrow": "Expérience",
+    "title": "Parcours professionnel"
+  },
+  "skills": {
+    "eyebrow": "Stack technique",
+    "title": "Mes outils du quotidien"
   }
 }

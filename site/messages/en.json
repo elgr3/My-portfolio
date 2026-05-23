@@ -29,5 +29,13 @@
       "teachDesc": "Acadomia tutor: teaching is mastering."
     },
     "certs": "Certifications"
+  },
+  "experience": {
+    "eyebrow": "Experience",
+    "title": "Professional journey"
+  },
+  "skills": {
+    "eyebrow": "Tech stack",
+    "title": "My daily tools"
   }
 }
