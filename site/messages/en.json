@@ -37,5 +37,22 @@
   "skills": {
     "eyebrow": "Tech stack",
     "title": "My daily tools"
+  },
+  "projects": {
+    "eyebrow": "Projects",
+    "title": "Selected work",
+    "all": "All",
+    "dataEng": "Data Engineering",
+    "bi": "BI",
+    "aiMl": "AI / ML",
+    "backend": "Backend",
+    "viewCase": "Case study",
+    "viewGithub": "View on GitHub",
+    "comingSoon": "Coming soon",
+    "moreOnGithub": "See all my repos on GitHub →"
+  },
+  "education": {
+    "eyebrow": "Education",
+    "title": "Academic background"
   }
 }
