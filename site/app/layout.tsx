@@ -22,6 +22,33 @@ export const metadata: Metadata = {
   },
   description:
     "Data Engineer & Analyst en alternance chez BNP Paribas Cardif. Pipelines cloud, PySpark, Python, SQL, Power BI, IA.",
+  authors: [{ name: "Rody Brayan DAMA" }],
+  keywords: [
+    "Data Engineer",
+    "Data Analyst",
+    "PySpark",
+    "Azure",
+    "Power BI",
+    "Python",
+    "SQL",
+    "BNP Paribas",
+    "Portfolio",
+  ],
+  openGraph: {
+    title: "Rody Brayan DAMA — Data Engineer & Analyst",
+    description:
+      "Pipelines cloud · PySpark · Azure · Power BI · IA. Construire la donnée utile à grande échelle.",
+    type: "website",
+    locale: "fr_FR",
+    siteName: "Rody Brayan DAMA",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Rody Brayan DAMA — Data Engineer & Analyst",
+    description:
+      "Pipelines cloud · PySpark · Azure · Power BI · IA. Construire la donnée utile à grande échelle.",
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
