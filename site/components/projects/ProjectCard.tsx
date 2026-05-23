@@ -1,6 +1,7 @@
 "use client";
 import { useTranslations } from "next-intl";
 import { ArrowUpRight } from "lucide-react";
+import { GithubIcon } from "@/components/ui/GithubIcon";
 import { Card } from "@/components/ui/Card";
 import { Tag } from "@/components/ui/Tag";
 import { Badge } from "@/components/ui/Badge";
@@ -45,6 +46,7 @@ export function ProjectCard({ project, locale }: { project: Project; locale: "fr
           rel="noopener noreferrer"
           className="mt-5 inline-flex items-center gap-1.5 text-sm text-[var(--color-accent)] hover:gap-2.5 transition-all"
         >
+          <GithubIcon size={14} />
           {project.link.label[locale]}
         </a>
       )}
