@@ -2,8 +2,8 @@
 import { useTranslations, useLocale } from "next-intl";
 import { Section } from "@/components/ui/Section";
 import { Card } from "@/components/ui/Card";
-import { Badge } from "@/components/ui/Badge";
-import { Monogram } from "@/components/motion/Monogram";
+import { ProfileAvatar } from "@/components/about/ProfileAvatar";
+import { CertificationCard } from "@/components/about/CertificationCard";
 import { Reveal } from "@/components/motion/Reveal";
 import { profile } from "@/content/profile";
 import { certifications } from "@/content/certifications";
@@ -16,8 +16,8 @@ export function About() {
   return (
     <Section id="about" eyebrow={t("eyebrow")} title={t("title")}>
       <div className="grid md:grid-cols-3 gap-12 items-start">
-        <Reveal className="md:col-span-1 flex justify-center">
-          <Monogram />
+        <Reveal className="md:col-span-1 flex justify-center md:justify-start">
+          <ProfileAvatar />
         </Reveal>
 
         <div className="md:col-span-2 space-y-8">
@@ -44,14 +44,17 @@ export function About() {
 
           <Reveal index={6}>
             <div>
-              <h3 className="font-mono text-sm text-[var(--color-text-muted)] mb-3">
-                // {t("certs")}
-              </h3>
-              <div className="flex flex-wrap gap-2">
+              <div className="mb-4 flex items-baseline justify-between gap-4">
+                <h3 className="font-mono text-sm text-[var(--color-text-muted)]">
+                  // {t("certs")}
+                </h3>
+                <span className="font-mono text-[11px] text-[var(--color-text-muted)]/70">
+                  {t("certsSubtitle")}
+                </span>
+              </div>
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                 {certifications.map((c) => (
-                  <Badge key={c.name} tone="accent">
-                    {c.name}
-                  </Badge>
+                  <CertificationCard key={c.code} cert={c} />
                 ))}
               </div>
             </div>

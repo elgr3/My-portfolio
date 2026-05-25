@@ -28,7 +28,9 @@
       "teach": "Teaching",
       "teachDesc": "Acadomia tutor: teaching is mastering."
     },
-    "certs": "Certifications"
+    "certs": "Certifications",
+    "certsSubtitle": "Official Microsoft credentials",
+    "certViewOn": "Microsoft Learn"
   },
   "experience": {
     "eyebrow": "Experience",

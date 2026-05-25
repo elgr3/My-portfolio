@@ -1,4 +1,6 @@
 "use client";
+import Image from "next/image";
+import { motion } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
@@ -13,9 +15,12 @@ export function Hero() {
       id="top"
       className="relative mx-auto w-full max-w-6xl px-6 pt-32 pb-24 md:pt-40 md:pb-32"
     >
-      <Badge tone="lime" pulse className="mb-6">
-        {t("available")} · @BNP Paribas Cardif
-      </Badge>
+      <div className="flex items-center gap-3 mb-6">
+        <HeroAvatar />
+        <Badge tone="lime" pulse>
+          {t("available")} · @BNP Paribas Cardif
+        </Badge>
+      </div>
 
       <h1 className="font-bold tracking-tighter text-5xl sm:text-7xl md:text-8xl leading-[0.95]">
         Rody Brayan
@@ -51,6 +56,36 @@ export function Hero() {
         <Pipeline />
       </div>
     </section>
+  );
+}
+
+function HeroAvatar() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.7 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="relative shrink-0"
+    >
+      <div className="relative h-11 w-11 overflow-hidden rounded-full ring-1 ring-[var(--color-accent)]/40 transition-all hover:ring-[var(--color-accent)] hover:shadow-[0_0_24px_-4px_rgba(0,217,255,0.55)]">
+        <Image
+          src="/profile/rody.jpg"
+          alt="Rody Brayan DAMA"
+          fill
+          sizes="44px"
+          className="object-cover"
+          priority
+        />
+      </div>
+      <span
+        aria-hidden
+        className="pointer-events-none absolute -inset-1 -z-10 rounded-full"
+        style={{
+          background:
+            "radial-gradient(circle, rgba(0,217,255,0.35), transparent 70%)",
+        }}
+      />
+    </motion.div>
   );
 }
 

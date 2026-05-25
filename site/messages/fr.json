@@ -28,7 +28,9 @@
       "teach": "Vulgarisation",
       "teachDesc": "Tuteur Acadomia : transmettre, c'est aussi maîtriser."
     },
-    "certs": "Certifications"
+    "certs": "Certifications",
+    "certsSubtitle": "Certifications officielles Microsoft",
+    "certViewOn": "Microsoft Learn"
   },
   "experience": {
     "eyebrow": "Expérience",

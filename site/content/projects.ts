@@ -1,5 +1,22 @@
 export type ProjectCategory = "data-engineering" | "bi" | "ai-ml" | "backend";
 
+export type TechIcon =
+  | "azure"
+  | "aws"
+  | "python"
+  | "pyspark"
+  | "powerbi"
+  | "sql"
+  | "react"
+  | "opensearch"
+  | "java"
+  | "langchain"
+  | "mistral"
+  | "huggingface"
+  | "ci"
+  | "etl"
+  | "database";
+
 export type Project = {
   slug: string;
   title: { fr: string; en: string };
@@ -10,6 +27,8 @@ export type Project = {
   type: "pro" | "personal" | "school" | "coming-soon";
   link?: { href: string; label: { fr: string; en: string } };
   hasCaseStudy?: boolean;
+  coverTheme?: ProjectCategory;
+  coverIcons?: TechIcon[];
 };
 
 export const projects: Project[] = [
@@ -31,6 +50,7 @@ export const projects: Project[] = [
     categories: ["data-engineering"],
     type: "pro",
     hasCaseStudy: true,
+    coverIcons: ["azure", "pyspark", "ci"],
   },
   {
     slug: "dashboards-sncf",
@@ -50,6 +70,8 @@ export const projects: Project[] = [
     categories: ["bi", "data-engineering"],
     type: "pro",
     hasCaseStudy: true,
+    coverTheme: "bi",
+    coverIcons: ["powerbi", "etl", "sql"],
   },
   {
     slug: "moteur-recherche-opensearch",
@@ -69,6 +91,7 @@ export const projects: Project[] = [
     categories: ["data-engineering", "backend"],
     type: "pro",
     hasCaseStudy: true,
+    coverIcons: ["opensearch", "react", "database"],
   },
   {
     slug: "gestion-stagiaire",
@@ -85,6 +108,7 @@ export const projects: Project[] = [
       href: "https://github.com/elgr3/Gestion-Stagiaire",
       label: { fr: "Voir sur GitHub", en: "View on GitHub" },
     },
+    coverIcons: ["java", "database"],
   },
   {
     slug: "gestion-cin",
@@ -101,6 +125,7 @@ export const projects: Project[] = [
       href: "https://github.com/elgr3/Gestion_Cin-",
       label: { fr: "Voir sur GitHub", en: "View on GitHub" },
     },
+    coverIcons: ["python", "database"],
   },
   {
     slug: "rag-azure",
@@ -113,5 +138,6 @@ export const projects: Project[] = [
     stack: ["Python", "LangChain", "Mistral", "Hugging Face", "Vector DB"],
     categories: ["ai-ml"],
     type: "coming-soon",
+    coverIcons: ["langchain", "mistral", "huggingface"],
   },
 ];
