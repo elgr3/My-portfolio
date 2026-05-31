@@ -1,21 +1,21 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg: #0a0a0f;
-  --color-surface: #13131a;
-  --color-surface-hover: #1a1a24;
-  --color-border: #2a2a35;
-  --color-text: #e8e8f0;
-  --color-text-muted: #8a8a9a;
-  --color-accent: #00d9ff;
-  --color-accent-2: #c7ff3e;
-  --color-alert: #ff4d6d;
+  --color-bg:      #080c10;
+  --color-bg2:     #0d1117;
+  --color-surface: #111820;
+  --color-border:  #1e2d3d;
+  --color-cyan:    #00d4ff;
+  --color-purple:  #7c3aed;
+  --color-text:    #e2e8f0;
+  --color-muted:   #64748b;
 
-  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono), "Courier New", monospace;
 }
 
 * {
+  box-sizing: border-box;
   border-color: var(--color-border);
 }
 
@@ -29,38 +29,44 @@ body {
   font-family: var(--font-sans);
   background: var(--color-bg);
   color: var(--color-text);
-  font-feature-settings: "ss01", "cv11";
   min-height: 100vh;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
-  background: var(--color-accent);
+  background: var(--color-cyan);
   color: var(--color-bg);
 }
 
+/* Dot grid pattern pour le Hero */
+.dot-grid {
+  background-image: radial-gradient(rgba(0, 212, 255, 0.12) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Pulse pour badge disponible */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(1.4); }
+}
+.pulse-dot {
+  animation: pulse-dot 1.6s ease-in-out infinite;
+}
+
+/* Cursor clignotant typewriter */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+.cursor-blink {
+  animation: blink 0.8s step-end infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-}
-
-.data-grid-bg {
-  background-image:
-    linear-gradient(rgba(0, 217, 255, 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 217, 255, 0.04) 1px, transparent 1px);
-  background-size: 48px 48px;
-}
-
-.glow-cyan {
-  box-shadow: 0 0 0 1px rgba(0, 217, 255, 0.2), 0 0 24px -8px rgba(0, 217, 255, 0.4);
-}
-
-.glow-lime {
-  box-shadow: 0 0 0 1px rgba(199, 255, 62, 0.3), 0 0 24px -8px rgba(199, 255, 62, 0.5);
 }
