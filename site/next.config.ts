@@ -1,10 +1,10 @@
 import type { NextConfig } from "next";
-import createNextIntlPlugin from "next-intl/plugin";
-
-const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
 const nextConfig: NextConfig = {
-  reactStrictMode: true,
+  output: "export",
+  images: { unoptimized: true },
+  trailingSlash: true,
+  // basePath: "/portfolio",  // Décommenter si déployé sur username.github.io/portfolio
 };
 
-export default withNextIntl(nextConfig);
+export default nextConfig;
