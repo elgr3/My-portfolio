@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, JetBrains_Mono } from "next/font/google";
+import { Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
 });
@@ -15,38 +15,26 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://rody-dama.vercel.app"),
-  title: {
-    default: "Rody Brayan DAMA — Data Engineer & Analyst",
-    template: "%s · Rody Brayan DAMA",
-  },
+  title: "Rody Brayan DAMA — Data Scientist",
   description:
-    "Data Engineer & Analyst en alternance chez BNP Paribas Cardif. Pipelines cloud, PySpark, Python, SQL, Power BI, IA.",
+    "Alternant Data Engineer chez BNP Paribas Cardif, passionné par le Machine Learning appliqué à la finance et au banking.",
   authors: [{ name: "Rody Brayan DAMA" }],
   keywords: [
+    "Data Science",
+    "Machine Learning",
     "Data Engineer",
-    "Data Analyst",
-    "PySpark",
-    "Azure",
-    "Power BI",
     "Python",
-    "SQL",
+    "XGBoost",
+    "Finance",
     "BNP Paribas",
     "Portfolio",
   ],
   openGraph: {
-    title: "Rody Brayan DAMA — Data Engineer & Analyst",
+    title: "Rody Brayan DAMA — Data Scientist",
     description:
-      "Pipelines cloud · PySpark · Azure · Power BI · IA. Construire la donnée utile à grande échelle.",
+      "Machine Learning · Finance · Data Engineering. Transformer la donnée en valeur.",
     type: "website",
     locale: "fr_FR",
-    siteName: "Rody Brayan DAMA",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Rody Brayan DAMA — Data Engineer & Analyst",
-    description:
-      "Pipelines cloud · PySpark · Azure · Power BI · IA. Construire la donnée utile à grande échelle.",
   },
   robots: { index: true, follow: true },
 };
@@ -55,7 +43,11 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html className={`${geistSans.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
+    <html
+      lang="fr"
+      className={`${inter.variable} ${jetbrainsMono.variable}`}
+      suppressHydrationWarning
+    >
       <body className="antialiased">{children}</body>
     </html>
   );
