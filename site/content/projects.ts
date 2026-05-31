@@ -1,143 +1,104 @@
-export type ProjectCategory = "data-engineering" | "bi" | "ai-ml" | "backend";
+export type ProjectFilter = "all" | "ml" | "nlp" | "mlops" | "genai" | "finance";
 
-export type TechIcon =
-  | "azure"
-  | "aws"
-  | "python"
-  | "pyspark"
-  | "powerbi"
-  | "sql"
-  | "react"
-  | "opensearch"
-  | "java"
-  | "langchain"
-  | "mistral"
-  | "huggingface"
-  | "ci"
-  | "etl"
-  | "database";
+export type Metric = { label: string; value: string };
 
 export type Project = {
-  slug: string;
-  title: { fr: string; en: string };
-  context: { fr: string; en: string };
-  pitch: { fr: string; en: string };
-  stack: string[];
-  categories: ProjectCategory[];
-  type: "pro" | "personal" | "school" | "coming-soon";
-  link?: { href: string; label: { fr: string; en: string } };
-  hasCaseStudy?: boolean;
-  coverTheme?: ProjectCategory;
-  coverIcons?: TechIcon[];
+  id: string;
+  category: string;
+  categoryColor: string;
+  title: string;
+  description: string;
+  metrics: Metric[];
+  filters: ProjectFilter[];
+  status: "active" | "coming-soon";
+  githubUrl?: string;
+  detailsUrl?: string;
 };
 
 export const projects: Project[] = [
   {
-    slug: "pipeline-cloud-bnp",
-    title: {
-      fr: "Pipeline Cloud Migration & Industrialisation Data",
-      en: "Cloud Migration Pipeline & Data Industrialization",
-    },
-    context: {
-      fr: "Mission @ BNP Paribas Cardif · Data Engineer · 2026",
-      en: "Mission @ BNP Paribas Cardif · Data Engineer · 2026",
-    },
-    pitch: {
-      fr: "Conception et optimisation de pipelines pour migrer des flux de données vers Azure/AWS, avec automatisation CI/CD et gouvernance via DataGalaxy.",
-      en: "Design and optimization of pipelines migrating data flows to Azure/AWS, with CI/CD automation and DataGalaxy governance.",
-    },
-    stack: ["Python", "PySpark", "Azure", "AWS", "SQL", "CI/CD", "DataGalaxy"],
-    categories: ["data-engineering"],
-    type: "pro",
-    hasCaseStudy: true,
-    coverIcons: ["azure", "pyspark", "ci"],
+    id: "credit-scoring",
+    category: "MACHINE LEARNING",
+    categoryColor: "var(--color-cyan)",
+    title: "Credit Scoring",
+    description:
+      "Modèle de scoring crédit sur 150 000 clients bancaires (Give Me Some Credit, Kaggle). XGBoost, SHAP, gestion du déséquilibre de classes.",
+    metrics: [
+      { label: "AUC-ROC", value: "0.87" },
+      { label: "Gini", value: "0.74" },
+    ],
+    filters: ["ml", "finance"],
+    status: "active",
+    githubUrl: "https://github.com/elgr3",
   },
   {
-    slug: "dashboards-sncf",
-    title: {
-      fr: "Dashboards stratégiques & Automatisation ETL",
-      en: "Strategic Dashboards & ETL Automation",
-    },
-    context: {
-      fr: "Mission @ SNCF Voyageurs · Data Analyst · 2024–2025",
-      en: "Mission @ SNCF Voyageurs · Data Analyst · 2024–2025",
-    },
-    pitch: {
-      fr: "Dashboards Power BI temps réel pour le suivi des KPIs voyageurs + pipelines ETL Python/SQL pour fiabiliser la donnée en amont.",
-      en: "Real-time Power BI dashboards for passenger KPIs + Python/SQL ETL pipelines to stabilize upstream data.",
-    },
-    stack: ["Power BI", "SQL", "Python", "ETL"],
-    categories: ["bi", "data-engineering"],
-    type: "pro",
-    hasCaseStudy: true,
-    coverTheme: "bi",
-    coverIcons: ["powerbi", "etl", "sql"],
+    id: "fraud-detection",
+    category: "MACHINE LEARNING",
+    categoryColor: "var(--color-cyan)",
+    title: "Fraud Detection",
+    description:
+      "Détection de transactions frauduleuses sur données très déséquilibrées (<1% de fraudes). Isolation Forest, SMOTE, threshold optimization.",
+    metrics: [
+      { label: "Precision", value: "—" },
+      { label: "Recall", value: "—" },
+    ],
+    filters: ["ml", "finance"],
+    status: "coming-soon",
   },
   {
-    slug: "moteur-recherche-opensearch",
-    title: {
-      fr: "Moteur de recherche documentaire OpenSearch",
-      en: "OpenSearch Document Search Engine",
-    },
-    context: {
-      fr: "Mission @ Matheles IT Consulting · Data Engineer · 2024",
-      en: "Mission @ Matheles IT Consulting · Data Engineer · 2024",
-    },
-    pitch: {
-      fr: "Mise en place complète d'un moteur de recherche : indexation, configuration des indices OpenSearch, front en ReactiveSearch.",
-      en: "End-to-end search engine: document indexing, OpenSearch index configuration, ReactiveSearch frontend.",
-    },
-    stack: ["OpenSearch", "ReactiveSearch", "React", "Elasticsearch DSL"],
-    categories: ["data-engineering", "backend"],
-    type: "pro",
-    hasCaseStudy: true,
-    coverIcons: ["opensearch", "react", "database"],
+    id: "churn-prediction",
+    category: "MACHINE LEARNING",
+    categoryColor: "var(--color-cyan)",
+    title: "Churn Prediction",
+    description:
+      "Prédiction de l'attrition clients bancaires avec recommandations de rétention actionnables. Pipeline complet de feature engineering.",
+    metrics: [
+      { label: "F1-Score", value: "—" },
+      { label: "Accuracy", value: "—" },
+    ],
+    filters: ["ml", "finance"],
+    status: "coming-soon",
   },
   {
-    slug: "gestion-stagiaire",
-    title: { fr: "Gestion-Stagiaire", en: "Internship Manager" },
-    context: { fr: "Projet personnel · 2023", en: "Personal project · 2023" },
-    pitch: {
-      fr: "Application de gestion des stagiaires d'une entreprise (CRUD complet, persistance).",
-      en: "Internship management application for companies (full CRUD, persistence).",
-    },
-    stack: ["Java", "JavaFX", "MySQL"],
-    categories: ["backend"],
-    type: "personal",
-    link: {
-      href: "https://github.com/elgr3/Gestion-Stagiaire",
-      label: { fr: "Voir sur GitHub", en: "View on GitHub" },
-    },
-    coverIcons: ["java", "database"],
+    id: "sentiment-finance",
+    category: "NLP",
+    categoryColor: "#a78bfa",
+    title: "Sentiment Analysis Finance",
+    description:
+      "Analyse de sentiment sur actualités financières avec FinBERT. Corrélation avec mouvements de marchés.",
+    metrics: [
+      { label: "F1-Score", value: "—" },
+      { label: "Dataset", value: "—" },
+    ],
+    filters: ["nlp", "finance"],
+    status: "coming-soon",
   },
   {
-    slug: "gestion-cin",
-    title: { fr: "Gestion CIN", en: "ID Card Manager" },
-    context: { fr: "Projet personnel · 2023", en: "Personal project · 2023" },
-    pitch: {
-      fr: "Système de gestion d'identités (CIN) avec interface Python et persistance SQLite.",
-      en: "Identity card management system with Python UI and SQLite persistence.",
-    },
-    stack: ["Python", "Tkinter", "SQLite"],
-    categories: ["backend"],
-    type: "personal",
-    link: {
-      href: "https://github.com/elgr3/Gestion_Cin-",
-      label: { fr: "Voir sur GitHub", en: "View on GitHub" },
-    },
-    coverIcons: ["python", "database"],
+    id: "mlops-pipeline",
+    category: "MLOPS",
+    categoryColor: "#34d399",
+    title: "Déploiement Credit Scoring",
+    description:
+      "Pipeline MLOps complet : FastAPI, Docker, MLflow, monitoring de dérive avec Evidently. CI/CD GitHub Actions.",
+    metrics: [
+      { label: "Latence", value: "—" },
+      { label: "Uptime", value: "—" },
+    ],
+    filters: ["mlops"],
+    status: "coming-soon",
   },
   {
-    slug: "rag-azure",
-    title: { fr: "RAG sur la doc Azure", en: "RAG on Azure docs" },
-    context: { fr: "Projet vitrine · en cours", en: "Showcase project · in progress" },
-    pitch: {
-      fr: "Mini-projet RAG répondant aux questions sur la doc Azure via Hugging Face + Mistral + vector DB.",
-      en: "RAG mini-project answering Azure doc questions via Hugging Face + Mistral + vector DB.",
-    },
-    stack: ["Python", "LangChain", "Mistral", "Hugging Face", "Vector DB"],
-    categories: ["ai-ml"],
-    type: "coming-soon",
-    coverIcons: ["langchain", "mistral", "huggingface"],
+    id: "rag-chatbot",
+    category: "GENAI",
+    categoryColor: "#f59e0b",
+    title: "RAG Chatbot Finance",
+    description:
+      "Chatbot RAG sur rapports financiers annuels. LangChain, embeddings OpenAI, retrieval augmenté sur données 10-K.",
+    metrics: [
+      { label: "Sources", value: "—" },
+      { label: "Precision", value: "—" },
+    ],
+    filters: ["genai", "finance"],
+    status: "coming-soon",
   },
 ];
