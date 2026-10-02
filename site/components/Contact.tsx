@@ -4,6 +4,7 @@ import { Download, Mail } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/icons";
 import { SectionTitle } from "@/components/SectionTitle";
 import { profile } from "@/content/profile";
+import { asset } from "@/lib/asset";
 
 const SOCIALS = [
   { label: "LinkedIn", href: profile.linkedin, Icon: LinkedinIcon },
@@ -42,7 +43,7 @@ export function Contact() {
               Me contacter
             </a>
             <a
-              href={profile.cvPath}
+              href={asset(profile.cvPath)}
               download
               className="px-10 py-5 border border-white/10 text-white font-extrabold rounded-lg hover:bg-white/5 transition-all flex items-center gap-3 text-[14px] uppercase tracking-widest"
             >

@@ -2,6 +2,7 @@
 import { motion } from "framer-motion";
 import { Brain, Database, BarChart2, Cpu } from "lucide-react";
 import { SectionTitle } from "@/components/SectionTitle";
+import { asset } from "@/lib/asset";
 import { skillCards, type SkillCard, type Tool } from "@/content/skills";
 
 function getIcon(name: string) {
@@ -29,7 +30,7 @@ function ToolBadge({ tool, index }: { tool: Tool; index: number }) {
         {tool.logo ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
-            src={tool.logo}
+            src={asset(tool.logo)}
             alt=""
             className="w-full h-full object-contain relative z-10 brightness-90 group-hover/tool:brightness-110 group-hover/tool:drop-shadow-[0_0_10px_rgba(255,255,255,0.3)] transition-all"
           />

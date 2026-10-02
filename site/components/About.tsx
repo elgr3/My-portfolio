@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { SectionTitle } from "@/components/SectionTitle";
 import { profile } from "@/content/profile";
+import { asset } from "@/lib/asset";
 
 const SHOWCASE = [
   { src: "/logos/python.svg", alt: "Python" },
@@ -40,7 +41,7 @@ function LogoShowcase() {
         // eslint-disable-next-line @next/next/no-img-element
         <motion.img
           key={logo.src}
-          src={logo.src}
+          src={asset(logo.src)}
           alt={logo.alt}
           initial={false}
           animate={{ opacity: i === active ? 1 : 0, scale: i === active ? 1 : 0.96 }}

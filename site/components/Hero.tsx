@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, BarChart3, Database, Download, Mail, Zap } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/icons";
 import { profile } from "@/content/profile";
+import { asset } from "@/lib/asset";
 
 function useTypewriter(words: string[]) {
   const [display, setDisplay] = useState("");
@@ -127,7 +128,7 @@ export function Hero() {
               Voir mes projets <ArrowRight size={18} />
             </a>
             <a
-              href={profile.cvPath}
+              href={asset(profile.cvPath)}
               download
               className="px-8 py-4 border border-white/10 text-white font-bold rounded-lg hover:bg-white/5 transition-all flex items-center gap-2 text-[14px] uppercase tracking-wider"
             >
@@ -177,7 +178,7 @@ export function Hero() {
 
             <div className="relative z-10 w-64 h-64 lg:w-[400px] lg:h-[400px] rounded-full overflow-hidden border-8 border-white/5 shadow-2xl glow-border">
               <Image
-                src={profile.photo}
+                src={asset(profile.photo)}
                 alt={profile.name}
                 fill
                 sizes="(max-width: 1024px) 256px, 400px"
