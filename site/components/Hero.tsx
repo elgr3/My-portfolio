@@ -2,23 +2,8 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { Mail } from "lucide-react";
-
-function GithubIcon({ size = 20 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/>
-    </svg>
-  );
-}
-
-function LinkedinIcon({ size = 20 }: { size?: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-    </svg>
-  );
-}
+import { ArrowRight, BarChart3, Database, Download, Mail, Zap } from "lucide-react";
+import { GithubIcon, LinkedinIcon } from "@/components/icons";
 import { profile } from "@/content/profile";
 
 function useTypewriter(words: string[]) {
@@ -26,6 +11,7 @@ function useTypewriter(words: string[]) {
   const state = useRef({ wi: 0, ci: 0, deleting: false });
 
   useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
     function tick() {
       const { wi, ci, deleting } = state.current;
       const word = words[wi];
@@ -33,18 +19,18 @@ function useTypewriter(words: string[]) {
         if (ci < word.length) {
           setDisplay(word.slice(0, ci + 1));
           state.current.ci++;
-          setTimeout(tick, 80);
+          timer = setTimeout(tick, 100);
         } else {
-          setTimeout(() => {
+          timer = setTimeout(() => {
             state.current.deleting = true;
             tick();
-          }, 2200);
+          }, 2000);
         }
       } else {
         if (ci > 0) {
           setDisplay(word.slice(0, ci - 1));
           state.current.ci--;
-          setTimeout(tick, 40);
+          timer = setTimeout(tick, 50);
         } else {
           state.current.deleting = false;
           state.current.wi = (wi + 1) % words.length;
@@ -53,16 +39,43 @@ function useTypewriter(words: string[]) {
       }
     }
     tick();
+    return () => clearTimeout(timer);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return display;
 }
 
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 24 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, delay, ease: "easeOut" as const },
+// Flottement du texte : amplitude faible et cycle lent, le titre et le
+// paragraphe bougent presque ensemble pour que l'œil suive sans effort.
+const textFloat = (amplitude: number, delay = 0) => ({
+  animate: { y: [0, -amplitude, 0] },
+  transition: { duration: 7, repeat: Infinity, ease: "easeInOut" as const, delay },
 });
+
+const BADGE_ICONS = [BarChart3, Zap, Database];
+const BADGES = [
+  {
+    position: "-top-2 right-0 lg:-top-4 lg:-right-4",
+    style: "bg-bg/95 border-mint/30",
+    icon: "text-mint",
+    animate: { y: [0, -20, 0], x: [0, 15, 0] },
+    transition: { duration: 4, delay: 0 },
+  },
+  {
+    position: "bottom-16 left-0 lg:bottom-20 lg:-left-8",
+    style: "bg-linear-to-r from-blue/20 to-purple-500/20 border-blue/30",
+    icon: "text-blue",
+    animate: { y: [0, 20, 0], x: [0, -15, 0] },
+    transition: { duration: 5, delay: 0.5 },
+  },
+  {
+    position: "-bottom-2 right-4 lg:-bottom-4 lg:right-8",
+    style: "bg-linear-to-r from-purple-500/20 to-pink-500/20 border-purple-400/30",
+    icon: "text-purple-400",
+    animate: { y: [0, -15, 0], x: [0, 0, 0] },
+    transition: { duration: 4.5, delay: 1 },
+  },
+];
 
 export function Hero() {
   const typewriterText = useTypewriter([...profile.typewriterWords]);
@@ -70,135 +83,128 @@ export function Hero() {
   return (
     <section
       id="top"
-      className="relative min-h-screen flex items-center dot-grid overflow-hidden"
+      className="relative z-10 min-h-screen flex items-center pt-24 pb-16 overflow-hidden"
     >
-      {/* Radial glow top-left */}
-      <div
-        className="absolute -top-40 -left-40 w-[600px] h-[600px] rounded-full pointer-events-none"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 70%)",
-        }}
-      />
-
-      <div className="relative max-w-6xl mx-auto px-6 pt-28 pb-20 w-full grid lg:grid-cols-2 gap-12 items-center">
+      <div className="container mx-auto px-6 grid lg:grid-cols-12 gap-12 items-center">
         {/* LEFT */}
-        <div>
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+          className="lg:col-span-7"
+        >
           {/* Badge */}
-          <motion.div {...fadeUp(0)} className="inline-flex items-center gap-2 mb-8">
-            <span className="h-2 w-2 rounded-full bg-[var(--color-cyan)] pulse-dot" />
-            <span className="text-xs font-bold tracking-widest text-[var(--color-cyan)] uppercase">
-              {profile.badge}
-            </span>
-          </motion.div>
+          <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-mint/10 border border-mint/20 text-mint text-[11px] font-bold mb-8 uppercase tracking-widest">
+            <Zap size={14} className="animate-pulse shrink-0" />
+            {profile.badge}
+          </div>
 
           {/* H1 */}
-          <motion.h1
-            {...fadeUp(0.1)}
-            className="font-black leading-[1.05] mb-6"
-            style={{ fontSize: "clamp(2.4rem, 6vw, 4.5rem)" }}
-          >
-            <span className="block text-[var(--color-text)]">{profile.headline1}</span>
-            <span className="block text-[var(--color-text)]">{profile.headline2}</span>
-            <span className="block text-[var(--color-cyan)]">
+          <h1 className="text-4xl lg:text-7xl font-tech font-extrabold text-white mb-6 leading-[1.1]">
+            <motion.span {...textFloat(4)} className="inline-block">
+              {profile.headline1} {profile.headline2}
+            </motion.span>
+            <br />
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-mint to-blue glow-text-mint inline-block min-h-[1.2em]">
               {typewriterText}
-              <span className="cursor-blink text-[var(--color-cyan)]">|</span>
+              <span className="cursor-blink text-white font-normal ml-1">|</span>
             </span>
-          </motion.h1>
+          </h1>
 
           {/* Subtitle */}
-          <motion.p
-            {...fadeUp(0.2)}
-            className="text-[var(--color-muted)] text-base md:text-lg max-w-lg mb-10 leading-relaxed"
-          >
-            {profile.subtitle}
-          </motion.p>
+          <p className="text-[17px] text-slate-400 mb-10 max-w-2xl leading-relaxed">
+            <motion.span {...textFloat(3, 0.4)} className="inline-block">
+              {profile.subtitle}
+            </motion.span>
+          </p>
 
           {/* CTAs */}
-          <motion.div {...fadeUp(0.3)} className="flex flex-wrap gap-4 mb-10">
+          <div className="flex flex-wrap gap-4 mb-12">
             <a
               href="#portfolio"
-              className="px-6 py-3 bg-[var(--color-cyan)] text-[var(--color-bg)] font-bold text-sm rounded-lg hover:brightness-110 transition-all"
+              className="px-8 py-4 bg-mint text-bg font-bold rounded-lg hover:shadow-[0_0_20px_rgba(45,212,191,0.5)] transition-all flex items-center gap-2 text-[14px] uppercase tracking-wider"
             >
-              VOIR MES PROJETS →
+              Voir mes projets <ArrowRight size={18} />
             </a>
             <a
               href={profile.cvPath}
               download
-              className="px-6 py-3 border border-[var(--color-border)] text-[var(--color-text)] font-bold text-sm rounded-lg hover:border-[var(--color-cyan)] hover:text-[var(--color-cyan)] transition-all"
+              className="px-8 py-4 border border-white/10 text-white font-bold rounded-lg hover:bg-white/5 transition-all flex items-center gap-2 text-[14px] uppercase tracking-wider"
             >
-              TÉLÉCHARGER MON CV
+              <Download size={18} /> Télécharger mon CV
             </a>
-          </motion.div>
+          </div>
 
           {/* Socials */}
-          <motion.div {...fadeUp(0.4)} className="flex items-center gap-5">
+          <div className="flex items-center gap-6 text-slate-500">
             <a
               href={profile.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="text-[var(--color-muted)] hover:text-[var(--color-cyan)] transition-colors"
+              className="hover:text-mint transition-colors"
             >
-              <LinkedinIcon size={20} />
+              <LinkedinIcon size={24} />
             </a>
             <a
               href={profile.github}
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
-              className="text-[var(--color-muted)] hover:text-[var(--color-cyan)] transition-colors"
+              className="hover:text-mint transition-colors"
             >
-              <GithubIcon size={20} />
+              <GithubIcon size={24} />
             </a>
             <a
               href={`mailto:${profile.email}`}
               aria-label="Email"
-              className="text-[var(--color-muted)] hover:text-[var(--color-cyan)] transition-colors"
+              className="hover:text-mint transition-colors"
             >
-              <Mail size={20} />
+              <Mail size={24} />
             </a>
-          </motion.div>
-        </div>
+          </div>
+        </motion.div>
 
         {/* RIGHT — Photo + floating badges */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" as const }}
-          className="relative flex justify-center items-center"
+          transition={{ duration: 1 }}
+          className="lg:col-span-5 relative"
         >
-          {/* Photo */}
-          <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-2 border-[var(--color-cyan)]/30 shadow-[0_0_60px_-10px_rgba(0,212,255,0.3)]">
-            <Image
-              src={profile.photo}
-              alt={profile.name}
-              fill
-              sizes="(max-width: 768px) 256px, 320px"
-              className="object-cover"
-              priority
-            />
-          </div>
+          <div className="relative group flex justify-center items-center h-[340px] lg:h-[600px] max-w-[440px] mx-auto">
+            <div className="absolute -inset-4 bg-linear-to-r from-mint to-blue opacity-10 blur-3xl group-hover:opacity-20 transition-opacity" />
 
-          {/* Floating badges */}
-          {[...profile.floatingBadges].map((badge, i) => {
-            const positions = [
-              "top-4 -right-4 md:top-8 md:-right-8",
-              "bottom-16 -right-8 md:-right-12",
-              "bottom-4 -left-4 md:-left-8",
-            ];
-            return (
-              <motion.div
-                key={badge}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.6 + i * 0.15 }}
-                className={`absolute ${positions[i]} bg-[var(--color-surface)] border border-[var(--color-border)] rounded-full px-3 py-1.5 text-xs font-bold text-[var(--color-cyan)] whitespace-nowrap shadow-lg`}
-              >
-                {badge}
-              </motion.div>
-            );
-          })}
+            <div className="relative z-10 w-64 h-64 lg:w-[400px] lg:h-[400px] rounded-full overflow-hidden border-8 border-white/5 shadow-2xl glow-border">
+              <Image
+                src={profile.photo}
+                alt={profile.name}
+                fill
+                sizes="(max-width: 1024px) 256px, 400px"
+                className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-1000"
+                style={{ objectPosition: "center 25%" }}
+                priority
+              />
+            </div>
+
+            {[...profile.floatingBadges].map((badge, i) => {
+              const b = BADGES[i];
+              const Icon = BADGE_ICONS[i];
+              return (
+                <motion.div
+                  key={badge}
+                  animate={b.animate}
+                  transition={{ ...b.transition, repeat: Infinity, ease: "easeInOut" }}
+                  className={`absolute ${b.position} ${b.style} border p-3 lg:p-4 rounded-2xl backdrop-blur-md shadow-2xl z-20 whitespace-nowrap`}
+                >
+                  <Icon className={`${b.icon} mb-1 inline-block mr-2`} size={20} />
+                  <span className="text-[10px] font-tech font-bold text-white uppercase tracking-tighter">
+                    {badge}
+                  </span>
+                </motion.div>
+              );
+            })}
+          </div>
         </motion.div>
       </div>
     </section>

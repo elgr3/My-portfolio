@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { GraduationCap } from "lucide-react";
+import { SectionTitle } from "@/components/SectionTitle";
 import { education } from "@/content/education";
 
 function formatYear(dateStr: string) {
@@ -14,51 +15,59 @@ const COUNTRY: Record<string, string> = {
   "ESIMAC — École Sup. d'Ingénieur et de Management d'Afrique Centrale": "CAMEROUN",
 };
 
+const cardVariants = {
+  initial: { y: 0, scale: 1 },
+  hover: { y: -15, scale: 1.03, transition: { type: "spring" as const, stiffness: 300, damping: 20 } },
+};
+
+const iconVariants = {
+  initial: { scale: 1, rotate: 0 },
+  hover: {
+    scale: 1.15,
+    rotate: [0, -5, 5, 0],
+    transition: {
+      rotate: { duration: 0.6, ease: "easeInOut" as const },
+      scale: { type: "spring" as const, stiffness: 400, damping: 12 },
+    },
+  },
+};
+
 export function Education() {
   return (
-    <section id="education" className="py-24 max-w-6xl mx-auto px-6">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-        className="text-center mb-14"
-      >
-        <p className="text-xs font-black tracking-[0.25em] text-[var(--color-cyan)] uppercase mb-3">
-          ÉDUCATION
-        </p>
-        <h2
-          className="font-black text-[var(--color-text)]"
-          style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}
-        >
-          Mon parcours académique
-        </h2>
-      </motion.div>
+    <section id="education" className="py-24 relative z-10 bg-white/[0.01]">
+      <div className="container mx-auto px-6 text-center">
+        <SectionTitle subtitle="Éducation" title="Mon parcours académique" centered />
 
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        {education.map((edu, i) => (
-          <motion.div
-            key={edu.school}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.5, delay: i * 0.1, ease: "easeOut" }}
-            className="bg-white rounded-2xl p-6 flex flex-col items-center text-center gap-4 shadow-sm hover:-translate-y-1 transition-transform duration-200"
-          >
-            <div className="w-14 h-14 rounded-xl bg-gray-100 flex items-center justify-center">
-              <GraduationCap size={28} className="text-gray-500" />
-            </div>
-            <div>
-              <p className="font-bold text-sm text-gray-900 leading-snug mb-1">{edu.school}</p>
-              <p className="text-xs text-[var(--color-cyan)] font-bold tracking-wider uppercase">
-                {COUNTRY[edu.school] ?? "FRANCE"}
-              </p>
-              <p className="text-xs text-gray-400 mt-1">
-                {formatYear(edu.start)} – {formatYear(edu.end)}
-              </p>
-            </div>
-          </motion.div>
-        ))}
+        <div className="flex flex-wrap justify-center gap-10">
+          {education.map((edu) => {
+            const [short, ...rest] = edu.school.split(" — ");
+            return (
+              <motion.div
+                key={edu.school}
+                initial="initial"
+                whileHover="hover"
+                variants={cardVariants}
+                className="bg-white p-6 rounded-[40px] w-64 aspect-square flex flex-col items-center justify-center shadow-2xl relative overflow-hidden cursor-default"
+              >
+                <motion.div
+                  variants={iconVariants}
+                  className="h-20 w-20 rounded-3xl bg-slate-100 flex items-center justify-center mb-4"
+                >
+                  <GraduationCap size={40} className="text-bg" />
+                </motion.div>
+                <h4 className="text-bg font-tech font-extrabold text-lg uppercase leading-tight">
+                  {short}
+                </h4>
+                <p className="text-slate-500 text-[10px] font-tech font-semibold leading-snug mt-1 px-2">
+                  {rest.join(" — ")}
+                </p>
+                <p className="text-slate-400 text-[9px] font-tech font-bold uppercase tracking-widest mt-3">
+                  {COUNTRY[edu.school] ?? "FRANCE"} · {formatYear(edu.start)} – {formatYear(edu.end)}
+                </p>
+              </motion.div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

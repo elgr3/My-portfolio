@@ -1,14 +1,16 @@
 "use client";
 import { useState, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/cn";
 import { profile } from "@/content/profile";
 
 const links = [
-  { label: "ACCUEIL", href: "#top" },
-  { label: "À PROPOS", href: "#about" },
-  { label: "PORTFOLIO", href: "#portfolio" },
-  { label: "COMPÉTENCES", href: "#skills" },
-  { label: "CONTACT", href: "#contact" },
+  { label: "Accueil", href: "#top" },
+  { label: "À propos", href: "#about" },
+  { label: "Portfolio", href: "#portfolio" },
+  { label: "Compétences", href: "#skills" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export function Nav() {
@@ -16,77 +18,85 @@ export function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 30);
+    const handler = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
   return (
+    <>
     <nav
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+        "fixed top-0 left-0 w-full z-50 transition-all duration-300",
         scrolled
-          ? "bg-[var(--color-bg)]/90 backdrop-blur-md border-b border-[var(--color-border)]"
-          : "bg-transparent"
+          ? "bg-bg/95 backdrop-blur-md border-b border-white/5 py-4"
+          : "bg-transparent py-6"
       )}
     >
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <div className="container mx-auto px-6 flex justify-between items-center">
         {/* Logo */}
-        <a href="#top" className="flex items-center gap-3 shrink-0">
-          <div className="w-9 h-9 rounded-lg bg-[var(--color-cyan)] flex items-center justify-center">
-            <span className="text-[var(--color-bg)] font-black text-sm tracking-tight">
-              {profile.initials}
-            </span>
+        <a href="#top" className="flex items-center gap-2 shrink-0">
+          <div className="w-10 h-10 bg-linear-to-br from-mint to-blue rounded-lg flex items-center justify-center font-tech font-extrabold text-bg shadow-lg">
+            {profile.initials}
           </div>
-          <span className="hidden sm:block text-sm font-semibold text-[var(--color-text)]">
+          <span className="font-tech text-sm font-bold tracking-tight text-white">
             {profile.tagline}
           </span>
         </a>
 
         {/* Desktop links */}
-        <ul className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-10">
           {links.map((l) => (
-            <li key={l.href}>
-              <a
-                href={l.href}
-                className="text-xs font-bold tracking-widest text-[var(--color-muted)] hover:text-[var(--color-cyan)] transition-colors duration-200"
-              >
-                {l.label}
-              </a>
-            </li>
+            <a
+              key={l.href}
+              href={l.href}
+              className="text-[12px] font-tech font-semibold text-slate-400 hover:text-white transition-colors uppercase tracking-widest"
+            >
+              {l.label}
+            </a>
           ))}
-        </ul>
+        </div>
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden flex flex-col gap-1.5 p-2"
-          onClick={() => setMenuOpen((o) => !o)}
-          aria-label="Menu"
+          className="md:hidden text-white"
+          onClick={() => setMenuOpen(true)}
+          aria-label="Ouvrir le menu"
         >
-          <span className={cn("block h-0.5 w-6 bg-[var(--color-text)] transition-all", menuOpen && "rotate-45 translate-y-2")} />
-          <span className={cn("block h-0.5 w-6 bg-[var(--color-text)] transition-all", menuOpen && "opacity-0")} />
-          <span className={cn("block h-0.5 w-6 bg-[var(--color-text)] transition-all", menuOpen && "-rotate-45 -translate-y-2")} />
+          <Menu size={24} />
         </button>
       </div>
-
-      {/* Mobile menu */}
-      {menuOpen && (
-        <div className="md:hidden bg-[var(--color-bg2)] border-b border-[var(--color-border)] px-6 py-4">
-          <ul className="flex flex-col gap-4">
-            {links.map((l) => (
-              <li key={l.href}>
-                <a
-                  href={l.href}
-                  onClick={() => setMenuOpen(false)}
-                  className="text-xs font-bold tracking-widest text-[var(--color-muted)] hover:text-[var(--color-cyan)] transition-colors"
-                >
-                  {l.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
     </nav>
+
+      {/* Mobile menu — hors du <nav> : son backdrop-blur piégerait le position: fixed */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: 100 }}
+            className="fixed inset-0 bg-bg z-[60] flex flex-col items-center justify-center gap-8 md:hidden"
+          >
+            <button
+              className="absolute top-6 right-6 text-white"
+              onClick={() => setMenuOpen(false)}
+              aria-label="Fermer le menu"
+            >
+              <X size={32} />
+            </button>
+            {links.map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                onClick={() => setMenuOpen(false)}
+                className="text-2xl font-tech font-bold text-white hover:text-mint"
+              >
+                {l.label}
+              </a>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

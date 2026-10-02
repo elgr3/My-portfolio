@@ -1,22 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  --color-bg:      #080c10;
-  --color-bg2:     #0d1117;
-  --color-surface: #111820;
-  --color-border:  #1e2d3d;
-  --color-cyan:    #00d4ff;
-  --color-purple:  #7c3aed;
-  --color-text:    #e2e8f0;
-  --color-muted:   #64748b;
+  --color-bg:     #020617;
+  --color-card:   #0a1120;
+  --color-stat:   #151f33;
+  --color-mint:   #2dd4bf;
+  --color-blue:   #3b82f6;
+  --color-text:   #e2e8f0;
+  --color-muted:  #94a3b8;
 
   --font-sans: var(--font-inter), system-ui, sans-serif;
-  --font-mono: var(--font-jetbrains-mono), "Courier New", monospace;
-}
-
-* {
-  box-sizing: border-box;
-  border-color: var(--color-border);
+  --font-tech: var(--font-jakarta), var(--font-inter), system-ui, sans-serif;
 }
 
 html {
@@ -35,23 +29,41 @@ body {
 }
 
 ::selection {
-  background: var(--color-cyan);
+  background: var(--color-mint);
   color: var(--color-bg);
 }
 
-/* Dot grid pattern pour le Hero */
-.dot-grid {
-  background-image: radial-gradient(rgba(0, 212, 255, 0.12) 1px, transparent 1px);
-  background-size: 28px 28px;
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--color-bg); }
+::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-mint); }
+
+/* Grille de points qui défile lentement (fond global) */
+@keyframes scroll-background {
+  from { background-position: 0 0; }
+  to   { background-position: 40px 40px; }
+}
+.data-stream-bg {
+  background-image: radial-gradient(circle at 2px 2px, rgba(45, 212, 191, 0.05) 1px, transparent 0);
+  background-size: 40px 40px;
+  animation: scroll-background 20s linear infinite;
 }
 
-/* Pulse pour badge disponible */
-@keyframes pulse-dot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%       { opacity: 0.5; transform: scale(1.4); }
+/* Traits lumineux qui tombent (fond global) */
+@keyframes stream-fall {
+  from { transform: translateY(-100%); }
+  to   { transform: translateY(500%); }
 }
-.pulse-dot {
-  animation: pulse-dot 1.6s ease-in-out infinite;
+.data-stream {
+  animation: stream-fall linear infinite;
+}
+
+.glow-border {
+  box-shadow: 0 0 20px rgba(45, 212, 191, 0.15);
+}
+
+.glow-text-mint {
+  text-shadow: 0 0 10px rgba(45, 212, 191, 0.4);
 }
 
 /* Cursor clignotant typewriter */
@@ -69,4 +81,5 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+  .data-stream { display: none; }
 }

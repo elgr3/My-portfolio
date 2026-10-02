@@ -2,7 +2,7 @@ export const profile = {
   name: "Rody Brayan DAMA",
   initials: "RD",
   tagline: "Data Science with RODY",
-  badge: "✦ ALTERNANT DATA SCIENTIST · BNP PARIBAS CARDIF",
+  badge: "ALTERNANT DATA SCIENTIST · BNP PARIBAS CARDIF",
   headline1: "Transformer la donnée",
   headline2: "en valeur",
   typewriterWords: ["Data Scientist", "ML Engineer", "Finance Expert"],

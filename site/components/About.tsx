@@ -1,91 +1,116 @@
 "use client";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { SectionTitle } from "@/components/SectionTitle";
 import { profile } from "@/content/profile";
 
-const fadeUp = (delay = 0) => ({
-  initial: { opacity: 0, y: 30 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, amount: 0.2 },
-  transition: { duration: 0.6, delay, ease: "easeOut" as const },
-});
+const SHOWCASE = [
+  { src: "/logos/python.svg", alt: "Python" },
+  { src: "/logos/azure.svg", alt: "Microsoft Azure" },
+  { src: "/logos/apachespark.svg", alt: "Apache Spark" },
+  { src: "/logos/scikitlearn.svg", alt: "scikit-learn" },
+];
+
+const CARDS = [
+  {
+    title: "Méthodologie",
+    items: ["CRISP-DM", "Feature engineering rigoureux", "Validation croisée", "Explainability SHAP"],
+  },
+  {
+    title: "Livrables",
+    items: ["Modèles calibrés & documentés", "Pipelines reproductibles", "Dashboards analytiques", "Rapports techniques"],
+  },
+];
+
+function LogoShowcase() {
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const id = window.setInterval(() => setActive((a) => (a + 1) % SHOWCASE.length), 3800);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <motion.div
+      animate={{ y: [0, -12, 0], x: [0, 8, 0], scale: [0.98, 1, 0.98] }}
+      transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+      className="relative w-full max-w-[520px] h-[420px] rounded-3xl overflow-hidden border border-white/5 bg-linear-to-br from-black/60 to-transparent shadow-2xl"
+    >
+      {SHOWCASE.map((logo, i) => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <motion.img
+          key={logo.src}
+          src={logo.src}
+          alt={logo.alt}
+          initial={false}
+          animate={{ opacity: i === active ? 1 : 0, scale: i === active ? 1 : 0.96 }}
+          transition={{ duration: 0.9 }}
+          className="absolute inset-0 w-full h-full object-contain p-24 pointer-events-none"
+        />
+      ))}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+        {SHOWCASE.map((logo, i) => (
+          <button
+            key={logo.src}
+            onClick={() => setActive(i)}
+            aria-label={`Afficher ${logo.alt}`}
+            className={`w-2.5 h-2.5 rounded-full ${i === active ? "bg-mint" : "bg-white/20"}`}
+          />
+        ))}
+      </div>
+    </motion.div>
+  );
+}
 
 export function About() {
   return (
-    <section id="about" className="py-24 max-w-6xl mx-auto px-6">
-      {/* Section header */}
-      <motion.div {...fadeUp(0)} className="mb-14">
-        <p className="text-xs font-black tracking-[0.25em] text-[var(--color-cyan)] uppercase mb-3">
-          À PROPOS
-        </p>
-        <h2 className="font-black text-[var(--color-text)] leading-tight"
-            style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)" }}>
-          {profile.aboutTitle}
-        </h2>
-      </motion.div>
+    <section id="about" className="py-24 relative z-10">
+      <div className="container mx-auto px-6">
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* LEFT — text + bullets + mini-cards */}
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6 }}
+          >
+            <SectionTitle subtitle="À propos" title={profile.aboutTitle} />
 
-      <div className="grid lg:grid-cols-5 gap-12 items-start">
-        {/* LEFT — text + bullets + mini-cards */}
-        <div className="lg:col-span-3 space-y-8">
-          <motion.p {...fadeUp(0.1)} className="text-[var(--color-muted)] leading-relaxed text-base">
-            {profile.aboutText}
-          </motion.p>
+            <div className="space-y-6 text-slate-400 leading-relaxed text-[17px] max-w-xl">
+              <p>{profile.aboutText}</p>
 
-          <div className="space-y-4">
-            {[...profile.aboutBullets].map((b, i) => (
-              <motion.div key={b.title} {...fadeUp(0.15 + i * 0.08)} className="flex gap-3">
-                <span className="mt-1.5 h-2 w-2 rounded-full bg-[var(--color-cyan)] shrink-0" />
-                <div>
-                  <span className="font-bold text-[var(--color-text)]">{b.title}</span>
-                  <span className="text-[var(--color-muted)]"> — {b.desc}</span>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+              <ul className="list-disc pl-6 space-y-2 marker:text-mint">
+                {[...profile.aboutBullets].map((b) => (
+                  <li key={b.title}>
+                    <strong className="text-white">{b.title}</strong> — {b.desc}
+                  </li>
+                ))}
+              </ul>
 
-          {/* Mini-cards */}
-          <motion.div {...fadeUp(0.5)} className="grid sm:grid-cols-2 gap-4">
-            {[
-              {
-                title: "MÉTHODOLOGIE",
-                items: ["CRISP-DM", "Feature engineering rigoureux", "Validation croisée", "Explainability SHAP"],
-              },
-              {
-                title: "LIVRABLES",
-                items: ["Modèles calibrés & documentés", "Pipelines reproductibles", "Dashboards analytiques", "Rapports techniques"],
-              },
-            ].map((card) => (
-              <div
-                key={card.title}
-                className="bg-[var(--color-surface)] border border-[var(--color-border)] rounded-xl p-5"
-              >
-                <p className="text-xs font-black tracking-widest text-[var(--color-cyan)] mb-3">{card.title}</p>
-                <ul className="space-y-1.5">
-                  {card.items.map((item) => (
-                    <li key={item} className="flex items-center gap-2 text-sm text-[var(--color-muted)]">
-                      <span className="h-1 w-1 rounded-full bg-[var(--color-cyan)] shrink-0" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
+              <div className="grid sm:grid-cols-2 gap-4 mt-8">
+                {CARDS.map((card) => (
+                  <div key={card.title} className="p-6 bg-card border border-white/5 rounded-2xl">
+                    <h4 className="text-white font-tech text-xs font-bold uppercase tracking-tight mb-2">
+                      {card.title}
+                    </h4>
+                    <p className="text-[12px] text-slate-400">{card.items.join(" · ")}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+          </motion.div>
+
+          {/* RIGHT — carrousel des outils phares */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6 }}
+            className="hidden lg:flex justify-center"
+          >
+            <LogoShowcase />
           </motion.div>
         </div>
-
-        {/* RIGHT — avatar card */}
-        <motion.div
-          {...fadeUp(0.2)}
-          className="lg:col-span-2 flex justify-center"
-        >
-          <div className="w-56 h-56 md:w-64 md:h-64 bg-white rounded-2xl flex items-center justify-center shadow-xl">
-            <span
-              className="font-black text-[#111820] select-none"
-              style={{ fontSize: "clamp(4rem, 12vw, 6rem)" }}
-            >
-              {profile.initials}
-            </span>
-          </div>
-        </motion.div>
       </div>
     </section>
   );
