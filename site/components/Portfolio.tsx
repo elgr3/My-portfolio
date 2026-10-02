@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Brain, BarChart2, Cpu, Zap, ArrowRight, Filter, X } from "lucide-react";
 import { GithubIcon } from "@/components/icons";
@@ -244,6 +245,8 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
 export function Portfolio() {
   const [active, setActive] = useState<ProjectFilter>("all");
   const [selected, setSelected] = useState<Project | null>(null);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
 
   const visible = projects.filter(
     (p) => active === "all" || p.filters.includes(active)
@@ -288,9 +291,14 @@ export function Portfolio() {
         </motion.div>
       </div>
 
-      <AnimatePresence>
-        {selected && <ProjectModal project={selected} onClose={() => setSelected(null)} />}
-      </AnimatePresence>
+      {/* Portail vers <body> : la section (relative z-10) piégerait la fenêtre sous les sections suivantes */}
+      {mounted &&
+        createPortal(
+          <AnimatePresence>
+            {selected && <ProjectModal project={selected} onClose={() => setSelected(null)} />}
+          </AnimatePresence>,
+          document.body
+        )}
     </section>
   );
 }

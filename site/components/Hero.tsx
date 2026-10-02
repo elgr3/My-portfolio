@@ -6,6 +6,7 @@ import { ArrowRight, BarChart3, Database, Download, Mail, Zap } from "lucide-rea
 import { GithubIcon, LinkedinIcon } from "@/components/icons";
 import { profile } from "@/content/profile";
 import { asset } from "@/lib/asset";
+import { certifications } from "@/content/certifications";
 
 function useTypewriter(words: string[]) {
   const [display, setDisplay] = useState("");
@@ -120,7 +121,7 @@ export function Hero() {
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-wrap gap-4 mb-12">
+          <div className="flex flex-wrap gap-4 mb-8">
             <a
               href="#portfolio"
               className="px-8 py-4 bg-mint text-bg font-bold rounded-lg hover:shadow-[0_0_20px_rgba(45,212,191,0.5)] transition-all flex items-center gap-2 text-[14px] uppercase tracking-wider"
@@ -135,6 +136,27 @@ export function Hero() {
               <Download size={18} /> Télécharger mon CV
             </a>
           </div>
+
+          {/* Certifications */}
+          <a href="#certifications" className="group flex flex-wrap items-center gap-2 mb-10">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={asset("/certs/microsoft-certified-associate-badge.svg")}
+              alt=""
+              className="w-8 h-8"
+            />
+            <span className="text-[11px] font-tech font-bold uppercase tracking-widest text-white mr-2">
+              Certifié Microsoft
+            </span>
+            {certifications.map((c) => (
+              <span
+                key={c.code}
+                className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-[10px] font-tech font-bold text-slate-300 tracking-wider group-hover:border-mint/40 group-hover:text-mint transition-colors"
+              >
+                {c.code}
+              </span>
+            ))}
+          </a>
 
           {/* Socials */}
           <div className="flex items-center gap-6 text-slate-500">

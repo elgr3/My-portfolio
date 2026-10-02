@@ -7,6 +7,7 @@ import { profile } from "@/content/profile";
 
 const links = [
   { label: "Accueil", href: "#top" },
+  { label: "Certifications", href: "#certifications" },
   { label: "À propos", href: "#about" },
   { label: "Portfolio", href: "#portfolio" },
   { label: "Compétences", href: "#skills" },
@@ -45,7 +46,7 @@ export function Nav() {
         </a>
 
         {/* Desktop links */}
-        <div className="hidden md:flex items-center gap-10">
+        <div className="hidden lg:flex items-center gap-8">
           {links.map((l) => (
             <a
               key={l.href}
@@ -59,7 +60,7 @@ export function Nav() {
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden text-white"
+          className="lg:hidden text-white"
           onClick={() => setMenuOpen(true)}
           aria-label="Ouvrir le menu"
         >
@@ -75,7 +76,7 @@ export function Nav() {
             initial={{ opacity: 0, x: 100 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 100 }}
-            className="fixed inset-0 bg-bg z-[60] flex flex-col items-center justify-center gap-8 md:hidden"
+            className="fixed inset-0 bg-bg z-[60] flex flex-col items-center justify-center gap-8 lg:hidden"
           >
             <button
               className="absolute top-6 right-6 text-white"
